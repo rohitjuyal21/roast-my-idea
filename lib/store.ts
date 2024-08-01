@@ -4,16 +4,19 @@ import commentsReducer from "./features/comments/commentsSlice";
 import ideaReducer from "./features/ideas/ideasSlice";
 import { useDispatch } from "react-redux";
 
-export const store = configureStore({
-  reducer: {
-    user: userReducer,
-    comments: commentsReducer,
-    ideas: ideaReducer,
-  },
-});
+export const makeStore = () => {
+  return configureStore({
+    reducer: {
+      user: userReducer,
+      comments: commentsReducer,
+      ideas: ideaReducer,
+    },
+  });
+};
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<AppStore["getState"]>;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const selectUser = (state: RootState) => state.user;
 export const selectComments = (state: RootState) => state.comments;

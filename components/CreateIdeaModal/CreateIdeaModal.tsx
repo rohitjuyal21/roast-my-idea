@@ -23,9 +23,7 @@ import { ideaSchema } from "./ideaSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { axiosInstance } from "@/lib/axiosInstance";
 import { useAppDispatch } from "@/lib/store";
-import { fetchIdeas, postIdea } from "@/lib/features/ideas/ideasSlice";
 
 const categories = [
   "Mobile application",

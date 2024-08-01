@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import IdeaCard from "./IdeaCard";
 import { ScrollArea } from "./ui/scroll-area";
 import { selectIdeas, useAppDispatch } from "@/lib/store";
-import { fetchIdeas, fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
+import { fetchIdeas } from "@/lib/features/ideas/ideasSlice";
 import { useSelector } from "react-redux";
 
 const TopIdeas = () => {

@@ -2,8 +2,8 @@
 import React, { useEffect, ComponentType } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
-import { useAppDispatch, RootState, selectUser } from "@/lib/store";
-import { fetchUser, logout } from "@/lib/features/user/userSlice";
+import { useAppDispatch, selectUser } from "@/lib/store";
+import { fetchUser } from "@/lib/features/user/userSlice";
 
 const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
   const AuthenticatedComponent: React.FC<P> = (props) => {

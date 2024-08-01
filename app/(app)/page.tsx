@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import withAuth from "@/components/withAuth";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { selectIdeas, selectUser, useAppDispatch } from "@/lib/store";
+import { selectIdeas, useAppDispatch } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { fetchIdeas, fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
 

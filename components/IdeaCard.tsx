@@ -1,7 +1,6 @@
 import { Idea } from "@/app/types/idea";
 import {
   downvoteIdea,
-  fetchIdeas,
   fetchSavedIdeas,
   toggleSavedIdeas,
   upvoteIdea,

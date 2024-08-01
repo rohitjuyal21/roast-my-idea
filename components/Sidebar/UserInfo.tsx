@@ -7,7 +7,6 @@ import { selectUser, useAppDispatch } from "@/lib/store";
 import { Button } from "../ui/button";
 import { LogOut, Settings } from "lucide-react";
 import Link from "next/link";
-import { axiosInstance } from "@/lib/axiosInstance";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
