@@ -11,7 +11,7 @@ import { axiosInstance } from "@/lib/axiosInstance";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { logout } from "@/lib/features/userSlice";
+import { logout } from "@/lib/features/user/userSlice";
 
 const UserInfo = () => {
   const { user } = useSelector(selectUser);
@@ -20,10 +20,8 @@ const UserInfo = () => {
 
   const handleLogout = async () => {
     try {
-      await axiosInstance.get("/auth/logout");
-      dispatch(logout());
+      await dispatch(logout()).unwrap();
       router.push("/login");
-      toast.success("Logout successfull!");
     } catch (error) {
       toast.error("Logout Failed!");
     }
@@ -44,7 +42,7 @@ const UserInfo = () => {
         <div className="flex w-full flex-col gap-2 items-start">
           <Button variant="ghost" className="w-full justify-start" asChild>
             <Link href="/settings">
-              <Settings className="mr-1" />
+              <Settings className="mr-2 size-5" />
               Settings
             </Link>
           </Button>
@@ -53,7 +51,7 @@ const UserInfo = () => {
             className="w-full justify-start"
             onClick={handleLogout}
           >
-            <LogOut className="mr-2" />
+            <LogOut className="mr-2 size-5" />
             Logout
           </Button>
         </div>

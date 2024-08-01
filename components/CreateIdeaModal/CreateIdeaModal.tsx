@@ -24,6 +24,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { axiosInstance } from "@/lib/axiosInstance";
+import { useAppDispatch } from "@/lib/store";
+import { fetchIdeas, postIdea } from "@/lib/features/ideas/ideasSlice";
 
 const categories = [
   "Mobile application",
@@ -36,25 +38,30 @@ const categories = [
 interface ModalProps {
   openDialog: boolean;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  refetchIdeas?: () => void;
 }
 
 const CreateIdeaModal: React.FC<ModalProps> = ({
   openDialog,
   setOpenDialog,
+  refetchIdeas,
 }) => {
   type IdeaFormData = z.infer<typeof ideaSchema>;
   const form = useForm<IdeaFormData>({
     resolver: zodResolver(ideaSchema),
   });
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = async (data: IdeaFormData) => {
-    console.log(data);
     try {
-      await axiosInstance.post("/posts", data);
+      await dispatch(postIdea(data)).unwrap();
       setOpenDialog(false);
       form.reset();
-      toast.success("Added your idea");
+      toast.success("Idea shared");
+      refetchIdeas?.();
     } catch (error) {
+      toast.error("Failed to share idea");
       console.log(error);
     }
   };
