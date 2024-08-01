@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, ComponentType } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
-import { useAppDispatch, selectUser } from "@/lib/store";
+import { useAppDispatch, selectUser, useAppSelector } from "@/lib/store";
 import { fetchUser } from "@/lib/features/user/userSlice";
 
 const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
@@ -10,7 +9,7 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
     const router = useRouter();
     const pathname = usePathname();
     const dispatch = useAppDispatch();
-    const { isAuthenticated, status } = useSelector(selectUser);
+    const { isAuthenticated, status } = useAppSelector(selectUser);
 
     useEffect(() => {
       const fetchCurrentUser = async () => {

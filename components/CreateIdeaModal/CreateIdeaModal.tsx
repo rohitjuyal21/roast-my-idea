@@ -24,6 +24,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { useAppDispatch } from "@/lib/store";
+import { postIdea } from "@/lib/features/ideas/ideasSlice";
 
 const categories = [
   "Mobile application",

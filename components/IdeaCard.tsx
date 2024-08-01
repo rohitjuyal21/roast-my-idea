@@ -6,7 +6,7 @@ import {
   upvoteIdea,
 } from "@/lib/features/ideas/ideasSlice";
 import { formatNumber } from "@/lib/formatNumber";
-import { selectUser, useAppDispatch } from "@/lib/store";
+import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import {
@@ -16,7 +16,6 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 
 interface IdeaCardProps {
   idea: Idea;
@@ -29,7 +28,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   isSmallCard,
   onUpvoteOrDownvote,
 }) => {
-  const { user } = useSelector(selectUser);
+  const { user } = useAppSelector(selectUser);
   const router = useRouter();
   const dispatch = useAppDispatch();
 

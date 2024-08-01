@@ -5,14 +5,13 @@ import { Button } from "@/components/ui/button";
 import withAuth from "@/components/withAuth";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { selectIdeas, useAppDispatch } from "@/lib/store";
-import { useSelector } from "react-redux";
+import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
 import { fetchIdeas, fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
 
 const Home = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const dispatch = useAppDispatch();
-  const { ideas, ideasStatus } = useSelector(selectIdeas);
+  const { ideas, ideasStatus } = useAppSelector(selectIdeas);
 
   useEffect(() => {
     dispatch(fetchIdeas());

@@ -2,12 +2,11 @@
 import React, { useEffect } from "react";
 import IdeaCard from "./IdeaCard";
 import { ScrollArea } from "./ui/scroll-area";
-import { selectIdeas, useAppDispatch } from "@/lib/store";
+import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
 import { fetchIdeas } from "@/lib/features/ideas/ideasSlice";
-import { useSelector } from "react-redux";
 
 const TopIdeas = () => {
-  const { ideas, ideasStatus } = useSelector(selectIdeas);
+  const { ideas, ideasStatus } = useAppSelector(selectIdeas);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

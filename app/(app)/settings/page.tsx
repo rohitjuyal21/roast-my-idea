@@ -13,14 +13,13 @@ import { Button } from "@/components/ui/button";
 import withAuth from "@/components/withAuth";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { logout } from "@/lib/features/user/userSlice";
-import { selectUser, useAppDispatch } from "@/lib/store";
+import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useSelector } from "react-redux";
 
 const Page = () => {
-  const { user } = useSelector(selectUser);
   const router = useRouter();
+  const { user } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
   const handleDeleteAccount = async () => {

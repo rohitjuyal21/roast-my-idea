@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useSelector } from "react-redux";
-import { selectUser, useAppDispatch } from "@/lib/store";
+import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
 
 import { Button } from "../ui/button";
 import { LogOut, Settings } from "lucide-react";
@@ -13,7 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { logout } from "@/lib/features/user/userSlice";
 
 const UserInfo = () => {
-  const { user } = useSelector(selectUser);
+  const { user } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const router = useRouter();
 

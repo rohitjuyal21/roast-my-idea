@@ -3,14 +3,12 @@
 import IdeaCard from "@/components/IdeaCard";
 import withAuth from "@/components/withAuth";
 import { fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
-import { selectIdeas, useAppDispatch } from "@/lib/store";
+import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
 import React, { useEffect } from "react";
-
-import { useSelector } from "react-redux";
 
 const Page = () => {
   const dispatch = useAppDispatch();
-  const { savedIdeas, savedIdeasStatus } = useSelector(selectIdeas);
+  const { savedIdeas, savedIdeasStatus } = useAppSelector(selectIdeas);
 
   useEffect(() => {
     dispatch(fetchSavedIdeas());
