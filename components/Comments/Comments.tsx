@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import CommentInput from "./CommentInput";
-import { axiosInstance } from "@/lib/axiosInstance";
-import { Comment as CommentItem } from "@/app/types/comment";
 import Comment from "./Comment";
-import { selectComments, useAppDispatch } from "@/lib/store";
+import { selectComments, useAppDispatch, useAppSelector } from "@/lib/store";
 import { fetchComments } from "@/lib/features/comments/commentsSlice";
-import { useSelector } from "react-redux";
-import { fetchIdeas } from "@/lib/features/ideas/ideasSlice";
 
 interface CommentsProps {
   ideaId: string | undefined;
@@ -16,7 +12,7 @@ interface CommentsProps {
 
 const Comments: React.FC<CommentsProps> = ({ ideaId, onCommentAdded }) => {
   const dispatch = useAppDispatch();
-  const { comments } = useSelector(selectComments);
+  const { comments } = useAppSelector(selectComments);
 
   useEffect(() => {
     if (ideaId) {

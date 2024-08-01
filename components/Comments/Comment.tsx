@@ -1,15 +1,13 @@
 import { Comment as CommentItem } from "@/app/types/comment";
 import {
   downvoteComment,
-  fetchComments,
   upvoteComment,
 } from "@/lib/features/comments/commentsSlice";
 import { formatNumber } from "@/lib/formatNumber";
-import { selectUser, useAppDispatch } from "@/lib/store";
+import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
-import { useSelector } from "react-redux";
 
 interface CommentProps {
   comment: CommentItem;
@@ -17,7 +15,7 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = ({ comment }) => {
   const dispatch = useAppDispatch();
-  const { user } = useSelector(selectUser);
+  const { user } = useAppSelector(selectUser);
 
   const handleUpvote = async () => {
     try {

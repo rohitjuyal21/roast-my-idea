@@ -16,7 +16,6 @@ import {
   addComment,
   fetchComments,
 } from "@/lib/features/comments/commentsSlice";
-import { fetchIdeas } from "@/lib/features/ideas/ideasSlice";
 
 const commentSchema = z.object({
   comment: z.string().min(1, "Comment can't be empty"),
