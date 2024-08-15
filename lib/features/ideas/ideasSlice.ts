@@ -150,7 +150,6 @@ const ideaSlice = createSlice({
       })
       .addCase(addComment.fulfilled, (state, action) => {
         const updatedIdea = action.payload.post;
-        console.log("updatedIdea", updatedIdea);
         state.ideas = state.ideas.map((idea) =>
           idea._id === updatedIdea._id ? updatedIdea : idea
         );
