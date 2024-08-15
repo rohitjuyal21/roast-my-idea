@@ -21,8 +21,8 @@ export const fetchUser = createAsyncThunk("/user/fetchUser", async () => {
   return data;
 });
 
-export const logout = createAsyncThunk("auth/logout", async () => {
-  await axiosInstance.post("/auth/logout");
+export const logout = createAsyncThunk("/logout", async () => {
+  await axiosInstance.post("/logout");
   return;
 });
 
