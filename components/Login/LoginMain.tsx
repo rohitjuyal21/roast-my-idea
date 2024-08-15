@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 const LoginMain = () => {
   const handleLogin = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/login`;
   };
 
   return (
