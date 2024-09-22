@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./auth";
+import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
-  const session = await auth();
-  const user = session?.user;
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH_SECRET!,
+  });
 
-  if (!user) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl));
-  }
-  // const token = await getToken({
-  //   req,
-  //   secret: process.env.AUTH_SECRET!,
-  // });
-
-  console.log("user", user);
+  console.log("user", token);
   console.log("Auth Secret", process.env.AUTH_SECRET);
   console.log("google id", process.env.AUTH_GOOGLE_ID);
   console.log("google secret", process.env.AUTH_GOOGLE_SECRET);
