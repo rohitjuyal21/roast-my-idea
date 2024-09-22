@@ -7,6 +7,8 @@ export async function middleware(req: NextRequest) {
     secret: process.env.AUTH_SECRET!,
   });
 
+  console.log("Token in middleware:", token);
+
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
