@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export const config = {
-  matcher: ["/settings/:path*", "/saved/:path*", "/:path/comments/", "/"],
-};
+// export const config = {
+//   matcher: ["/settings/:path*", "/saved/:path*", "/:path/comments/", "/"],
+// };
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({
