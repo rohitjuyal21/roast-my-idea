@@ -6,7 +6,7 @@ import UserSection from "./UserSection";
 
 const Sidebar = () => {
   return (
-    <aside className="border-r max-w-64 w-full flex fixed h-full">
+    <aside className="border-r max-w-64 hidden w-full md:flex fixed h-full">
       <div className="p-4 flex-1">
         <div className="pr-6 w-full h-full flex flex-col">
           <div className="pt-3 mb-14">

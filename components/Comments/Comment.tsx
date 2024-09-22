@@ -1,21 +1,23 @@
-import { Comment as CommentItem } from "@/app/types/comment";
+import { Comment as CommentItem } from "@/types/comment";
 import {
   downvoteComment,
   upvoteComment,
 } from "@/lib/features/comments/commentsSlice";
 import { formatNumber } from "@/lib/formatNumber";
-import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
+import { useAppDispatch } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 interface CommentProps {
   comment: CommentItem;
 }
 
 const Comment: React.FC<CommentProps> = ({ comment }) => {
+  const { data } = useSession();
+  const user = data?.user;
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector(selectUser);
 
   const handleUpvote = async () => {
     try {
@@ -47,14 +49,14 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
             onClick={handleUpvote}
             className={cn(
               "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
-              user && comment.upvotes.includes(user?._id)
+              user?.id && comment.upvotes.includes(user.id)
                 ? "text-destructive"
                 : "text-primary"
             )}
           >
             <ArrowBigUp
               fill={
-                user && comment.upvotes.includes(user?._id)
+                user?.id && comment.upvotes.includes(user.id)
                   ? "hsl(var(--destructive)"
                   : "hsl(var(--background))"
               }
@@ -68,14 +70,14 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
             onClick={handleDownvote}
             className={cn(
               "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
-              user && comment.downvotes.includes(user?._id)
+              user?.id && comment.downvotes.includes(user.id)
                 ? "text-destructive"
                 : "text-primary"
             )}
           >
             <ArrowBigDown
               fill={
-                user && comment.downvotes.includes(user?._id)
+                user?.id && comment.downvotes.includes(user.id)
                   ? "hsl(var(--destructive)"
                   : "hsl(var(--background))"
               }

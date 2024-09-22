@@ -1,8 +1,20 @@
+"use client";
 import Login from "@/components/Login/Login";
-import React from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
-const page = () => {
+const Page = () => {
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.push("/");
+    }
+  }, [router, session]);
+
   return <Login />;
 };
 
-export default page;
+export default Page;

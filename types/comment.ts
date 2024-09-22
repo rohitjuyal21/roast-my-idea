@@ -7,6 +7,7 @@ export interface Comment {
     _id: string;
   };
   createdAt: string;
+  updatedAt: string;
   upvotes: string[];
   downvotes: string[];
   __v: number;

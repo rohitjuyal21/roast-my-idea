@@ -1,4 +1,4 @@
-import { Idea } from "@/app/types/idea";
+import { Idea } from "@/types/idea";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { addComment } from "../comments/commentsSlice";
@@ -20,22 +20,22 @@ const initialState: IdeaState = {
 };
 
 export const fetchIdeas = createAsyncThunk("ideas/fetchIdeas", async () => {
-  const { data } = await axiosInstance.get("/posts");
+  const { data } = await axiosInstance.get("/idea");
   return data;
 });
 
 export const postIdea = createAsyncThunk(
   "ideas/postIdea",
   async (idea: { category: string; idea: string }) => {
-    const { data } = await axiosInstance.post("/posts", idea);
+    const { data } = await axiosInstance.post("/idea", idea);
     return data;
   }
 );
 
 export const fetchIdeaById = createAsyncThunk(
-  "ideas/fetchIdeaBtId",
+  "ideas/fetchIdeaById",
   async (ideaId: string | string[]) => {
-    const { data } = await axiosInstance.get(`/posts/${ideaId}`);
+    const { data } = await axiosInstance.get(`/idea/${ideaId}`);
     return data;
   }
 );
@@ -49,7 +49,7 @@ export const toggleSavedIdeas = createAsyncThunk(
     ideaId: string;
     userId: string | undefined;
   }) => {
-    const { data } = await axiosInstance.post(`/posts/${ideaId}/save`);
+    const { data } = await axiosInstance.post(`/idea/${ideaId}/save`);
     return data;
   }
 );
@@ -57,7 +57,7 @@ export const toggleSavedIdeas = createAsyncThunk(
 export const fetchSavedIdeas = createAsyncThunk(
   "ideas/fetchSavedIdeas",
   async () => {
-    const { data } = await axiosInstance.get("/posts/saved");
+    const { data } = await axiosInstance.get("/idea/saved");
     return data;
   }
 );
@@ -65,7 +65,7 @@ export const fetchSavedIdeas = createAsyncThunk(
 export const upvoteIdea = createAsyncThunk(
   "ideas/upvoteIdea",
   async (ideaId: string) => {
-    const { data } = await axiosInstance.post(`/posts/${ideaId}/upvote`);
+    const { data } = await axiosInstance.post(`/idea/${ideaId}/upvote`);
     return data;
   }
 );
@@ -73,7 +73,7 @@ export const upvoteIdea = createAsyncThunk(
 export const downvoteIdea = createAsyncThunk(
   "ideas/downvoteIdea",
   async (ideaId: string) => {
-    const { data } = await axiosInstance.post(`/posts/${ideaId}/downvote`);
+    const { data } = await axiosInstance.post(`/idea/${ideaId}/downvote`);
     return data;
   }
 );
@@ -149,7 +149,7 @@ const ideaSlice = createSlice({
         );
       })
       .addCase(addComment.fulfilled, (state, action) => {
-        const updatedIdea = action.payload.post;
+        const updatedIdea = action.payload.idea;
         state.ideas = state.ideas.map((idea) =>
           idea._id === updatedIdea._id ? updatedIdea : idea
         );

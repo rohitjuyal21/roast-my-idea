@@ -1,12 +1,11 @@
 "use client";
 import CreateIdeaModal from "@/components/CreateIdeaModal/CreateIdeaModal";
-import IdeaCard from "@/components/IdeaCard";
 import { Button } from "@/components/ui/button";
-import withAuth from "@/components/withAuth";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
 import { fetchIdeas, fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
+import AnimatedIdeaCard from "@/components/AnimatedIdeaCard";
 
 const Home = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -23,7 +22,7 @@ const Home = () => {
   );
 
   return (
-    <div className="p-8 h-full flex-1 flex flex-col gap-4">
+    <div className="p-4 md:p-8 h-full flex-1 flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-3xl">Feed</h1>
         <Button onClick={() => setOpenDialog(true)}>
@@ -38,7 +37,7 @@ const Home = () => {
       ) : (
         <div className="divide-y">
           {sortedIdeas.map((idea) => (
-            <IdeaCard key={idea._id} idea={idea} />
+            <AnimatedIdeaCard key={idea._id} idea={idea} />
           ))}
         </div>
       )}
@@ -47,4 +46,4 @@ const Home = () => {
   );
 };
 
-export default withAuth(Home);
+export default Home;

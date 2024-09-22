@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import CommentInput from "./CommentInput";
 import Comment from "./Comment";
@@ -32,12 +32,18 @@ const Comments: React.FC<CommentsProps> = ({ ideaId, onCommentAdded }) => {
   );
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full h-full">
       <CommentInput ideaId={ideaId} onCommentAdded={handleCommentAdded} />
-      <div>
-        {sortedComments?.map((comment) => (
-          <Comment key={comment._id} comment={comment} />
-        ))}
+      <div className="h-full">
+        {sortedComments?.length === 0 ? (
+          <div className="flex h-full items-center justify-center">
+            <p className="text-muted-foreground">Comments list is empty</p>
+          </div>
+        ) : (
+          sortedComments?.map((comment) => (
+            <Comment key={comment._id} comment={comment} />
+          ))
+        )}
       </div>
     </div>
   );

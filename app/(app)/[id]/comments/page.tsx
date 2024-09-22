@@ -1,9 +1,8 @@
 "use client";
-import { Idea } from "@/app/types/idea";
+import { Idea } from "@/types/idea";
 import Comments from "@/components/Comments/Comments";
 import IdeaCard from "@/components/IdeaCard";
 import { Button } from "@/components/ui/button";
-import withAuth from "@/components/withAuth";
 import { fetchIdeaById } from "@/lib/features/ideas/ideasSlice";
 import { useAppDispatch } from "@/lib/store";
 import { Undo } from "lucide-react";
@@ -59,4 +58,4 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default Page;

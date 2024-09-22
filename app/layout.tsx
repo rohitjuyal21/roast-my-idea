@@ -3,6 +3,8 @@ import { Bebas_Neue, Inter, Road_Rage } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import { Toaster } from "react-hot-toast";
+import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -29,15 +31,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <StoreProvider>
-      <html lang="en">
-        <body
-          className={`${inter.variable} ${road_rage.variable} ${bebas_neue.variable}`}
-        >
-          {children}
-          <Toaster />
-        </body>
-      </html>
-    </StoreProvider>
+    <html lang="en" suppressHydrationWarning>
+      <StoreProvider>
+        <SessionProvider>
+          <body
+            className={`${inter.variable} ${road_rage.variable} ${bebas_neue.variable}`}
+          >
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+            <Toaster />
+          </body>
+        </SessionProvider>
+      </StoreProvider>
+    </html>
   );
 }

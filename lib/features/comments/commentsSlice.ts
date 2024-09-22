@@ -1,4 +1,4 @@
-import { Comment } from "@/app/types/comment";
+import { Comment } from "@/types/comment";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../axiosInstance";
 

@@ -1,7 +1,6 @@
 "use client";
 
 import IdeaCard from "@/components/IdeaCard";
-import withAuth from "@/components/withAuth";
 import { fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
 import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
 import React, { useEffect } from "react";
@@ -15,7 +14,7 @@ const Page = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-8 h-full flex-1 flex flex-col gap-4">
+    <div className="p-4 md:p-8 h-full flex-1 flex flex-col gap-4">
       <h1 className="font-bold text-3xl">Saved</h1>
       {savedIdeasStatus === "loading" ? (
         <div className="flex h-full items-center justify-center">
@@ -24,7 +23,7 @@ const Page = () => {
       ) : (
         <>
           {savedIdeas.length > 0 ? (
-            <div>
+            <div className="divide-y">
               {savedIdeas.map((idea) => (
                 <IdeaCard key={idea._id} idea={idea} />
               ))}
@@ -40,4 +39,4 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default Page;

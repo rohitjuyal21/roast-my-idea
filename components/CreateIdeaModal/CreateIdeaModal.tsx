@@ -48,6 +48,10 @@ const CreateIdeaModal: React.FC<ModalProps> = ({
   type IdeaFormData = z.infer<typeof ideaSchema>;
   const form = useForm<IdeaFormData>({
     resolver: zodResolver(ideaSchema),
+    defaultValues: {
+      category: "",
+      idea: "",
+    },
   });
 
   const dispatch = useAppDispatch();
@@ -66,7 +70,15 @@ const CreateIdeaModal: React.FC<ModalProps> = ({
   };
 
   return (
-    <Dialog open={openDialog} onOpenChange={(val) => setOpenDialog(val)}>
+    <Dialog
+      open={openDialog}
+      onOpenChange={(val) => {
+        setOpenDialog(val);
+        if (!val) {
+          form.reset();
+        }
+      }}
+    >
       <DialogContent>
         <DialogTitle className="text-xl">Post your Idea</DialogTitle>
         <Form {...form}>

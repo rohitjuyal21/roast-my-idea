@@ -1,10 +1,10 @@
-"use client";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { signIn } from "next-auth/react";
 
 const LoginMain = () => {
-  const handleLogin = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/login`;
+  const handleLogin = async () => {
+    await signIn("google", { redirectTo: "/" });
   };
 
   return (
@@ -21,8 +21,10 @@ const LoginMain = () => {
         <p className="text-lg lg:text-xl mt-6 text-center mb-8">
           Share your idea with the world and get real, candid feedback
         </p>
+
         <Button
           onClick={handleLogin}
+          type="submit"
           variant="outline"
           size="lg"
           className="flex gap-2"

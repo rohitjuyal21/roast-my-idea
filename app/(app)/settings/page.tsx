@@ -10,30 +10,25 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import withAuth from "@/components/withAuth";
 import { axiosInstance } from "@/lib/axiosInstance";
-import { logout } from "@/lib/features/user/userSlice";
-import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
-import { useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import React from "react";
 
 const Page = () => {
-  const router = useRouter();
-  const { user } = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
+  const session = useSession();
+  const user = session.data?.user;
 
   const handleDeleteAccount = async () => {
     try {
-      await axiosInstance.delete("/user/delete-account");
-      dispatch(logout());
-      router.push("/login");
+      await axiosInstance.delete("/delete-account");
+      await signOut({ redirectTo: "/login" });
     } catch (error) {
       console.error("Failed to delete account:", error);
     }
   };
 
   return (
-    <div className="p-8 h-full flex flex-col gap-4">
+    <div className="p-4 md:p-8 h-full flex flex-col gap-4">
       <h1 className="font-bold text-3xl">Settings</h1>
       <div>
         <div className="mb-4 flex">
@@ -71,4 +66,4 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default Page;

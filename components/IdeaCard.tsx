@@ -1,4 +1,4 @@
-import { Idea } from "@/app/types/idea";
+import { Idea } from "@/types/idea";
 import {
   downvoteIdea,
   fetchSavedIdeas,
@@ -6,7 +6,7 @@ import {
   upvoteIdea,
 } from "@/lib/features/ideas/ideasSlice";
 import { formatNumber } from "@/lib/formatNumber";
-import { selectUser, useAppDispatch, useAppSelector } from "@/lib/store";
+import { useAppDispatch } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import {
@@ -16,6 +16,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface IdeaCardProps {
   idea: Idea;
@@ -28,7 +29,8 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   isSmallCard,
   onUpvoteOrDownvote,
 }) => {
-  const { user } = useAppSelector(selectUser);
+  const { data } = useSession();
+  const user = data?.user;
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -53,7 +55,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const handleSaveToggle = async () => {
     try {
       await dispatch(
-        toggleSavedIdeas({ ideaId: idea._id, userId: user?._id })
+        toggleSavedIdeas({ ideaId: idea._id, userId: user?.id })
       ).unwrap();
       await dispatch(fetchSavedIdeas());
       onUpvoteOrDownvote?.();
@@ -70,9 +72,13 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
     <div className="py-4 flex flex-col gap-3">
       <div className="flex items-center gap-3">
         <h4 className="font-medium">{idea.category}</h4>
-        <span className="text-sm text-muted-foreground">
-          {formatDistanceToNow(idea.createdAt, { addSuffix: true })}
-        </span>
+        {idea.createdAt && (
+          <span className="text-sm text-muted-foreground">
+            {formatDistanceToNow(new Date(idea.createdAt), {
+              addSuffix: true,
+            })}
+          </span>
+        )}
       </div>
       <p>{idea.idea}</p>
       <div className="flex items-center justify-between">
@@ -81,20 +87,20 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
             onClick={handleUpvote}
             className={cn(
               "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
-              user && idea.upvotes.includes(user?._id)
+              user?.id && idea.upvotes.includes(user?.id)
                 ? "text-destructive"
                 : "text-primary"
             )}
           >
             <ArrowBigUp
               fill={
-                user && idea.upvotes.includes(user?._id)
+                user?.id && idea.upvotes.includes(user?.id)
                   ? "hsl(var(--destructive)"
                   : "hsl(var(--background))"
               }
             />
             <span className="font-medium">
-              {idea.upvotes.length > 0 && formatNumber(idea.upvotes.length)}
+              {idea?.upvotes?.length > 0 && formatNumber(idea?.upvotes?.length)}
             </span>
             {!isSmallCard && (
               <span className="font-medium md:inline hidden">Upvote</span>
@@ -104,21 +110,21 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
             onClick={handleDownvote}
             className={cn(
               "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
-              user && idea.downvotes.includes(user?._id)
+              user?.id && idea.downvotes.includes(user?.id)
                 ? "text-destructive"
                 : "text-primary"
             )}
           >
             <ArrowBigDown
               fill={
-                user && idea.downvotes.includes(user?._id)
+                user?.id && idea.downvotes.includes(user?.id)
                   ? "hsl(var(--destructive)"
                   : "hsl(var(--background))"
               }
             />
             <span className="font-medium">
-              {idea.downvotes.length > 0 &&
-                `-${formatNumber(idea.downvotes.length)}`}
+              {idea?.downvotes?.length > 0 &&
+                `-${formatNumber(idea?.downvotes?.length)}`}
             </span>
             {!isSmallCard && (
               <span className="font-medium md:inline hidden">Downvote</span>
@@ -131,7 +137,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
           >
             <MessageSquare className="size-5" />
             <span className="font-medium">
-              {idea.comments.length > 0 && idea.comments.length}
+              {idea?.comments?.length > 0 && idea?.comments?.length}
             </span>
             {!isSmallCard && (
               <span className="font-medium md:inline hidden">Comment</span>
@@ -143,7 +149,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
             onClick={handleSaveToggle}
             className={cn(
               "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
-              user && idea.saves.includes(user?._id)
+              user?.id && idea.saves.includes(user?.id)
                 ? "text-destructive"
                 : "text-primary"
             )}
@@ -151,7 +157,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
             <Bookmark
               className="size-5"
               fill={
-                user && idea.saves.includes(user?._id)
+                user?.id && idea.saves.includes(user?.id)
                   ? "hsl(var(--destructive)"
                   : "hsl(var(--background))"
               }
