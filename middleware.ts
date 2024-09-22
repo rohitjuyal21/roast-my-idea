@@ -7,6 +7,12 @@ export async function middleware(req: NextRequest) {
     secret: process.env.AUTH_SECRET!,
   });
 
+  const { pathname } = req.nextUrl;
+
+  if (pathname.startsWith("/login")) {
+    return NextResponse.next();
+  }
+
   console.log("user", token);
   console.log("Auth Secret", process.env.AUTH_SECRET);
   console.log("google id", process.env.AUTH_GOOGLE_ID);
@@ -20,7 +26,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
