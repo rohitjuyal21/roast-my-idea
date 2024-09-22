@@ -1,9 +1,9 @@
 import { dbConnect } from "@/lib/db";
 import { Idea } from "@/models/Idea";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-  req: NextResponse,
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
