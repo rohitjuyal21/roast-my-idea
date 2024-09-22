@@ -37,6 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.providerAccountId) {
         token.sub = account.providerAccountId;
       }
+      console.log("token in auth", token);
       return token;
     },
   },
