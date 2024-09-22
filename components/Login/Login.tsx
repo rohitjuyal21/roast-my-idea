@@ -7,7 +7,7 @@ const Login = () => {
     <div className="flex w-full min-h-screen overflow-hidden">
       <LoginLeftSection />
       <LoginMain />
-      <LoginRightSection />
+      {/* <LoginRightSection /> */}
     </div>
   );
 };

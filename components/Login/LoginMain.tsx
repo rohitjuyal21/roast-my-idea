@@ -8,7 +8,7 @@ const LoginMain = () => {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center z-10 px-5">
+    <div className="flex-1 p-4 md:p-8 xl:px-80  flex items-center justify-center z-10 px-5">
       <div className="flex flex-col items-center">
         <div className="flex gap-1.5 items-end h-10">
           <div className="relative lg:size-[100px] size-[70px]">
