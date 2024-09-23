@@ -2,12 +2,14 @@ import NextAuth from "next-auth";
 import google from "next-auth/providers/google";
 import { dbConnect } from "./lib/db";
 import { User } from "./models/User";
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [google],
+  ...authConfig,
   pages: {
     signIn: "/login",
   },
+  providers: [google],
   callbacks: {
     async signIn({ user, account }) {
       await dbConnect();
@@ -37,7 +39,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.providerAccountId) {
         token.sub = account.providerAccountId;
       }
-      console.log("token in auth", token);
       return token;
     },
   },

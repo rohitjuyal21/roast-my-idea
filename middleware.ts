@@ -1,31 +1,35 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import NextAuth from "next-auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { authConfig } from "@/auth.config";
 
-export async function middleware(req: NextRequest) {
-  try {
-    const token = await getToken({
-      req,
-      secret: process.env.AUTH_SECRET as string,
-    });
+// export default NextAuth(authConfig).auth;
 
-    console.log("User token:", token);
-    console.log("Auth Secret:", process.env.AUTH_SECRET);
-    console.log("Google ID:", process.env.AUTH_GOOGLE_ID);
-    console.log("Google Secret:", process.env.AUTH_GOOGLE_SECRET);
+const { auth } = NextAuth(authConfig);
 
-    if (!token) {
-      console.log("No token found, redirecting to login page");
-      return NextResponse.redirect(new URL("/login", req.nextUrl));
-    }
-
-    console.log("Token found, proceeding to next middleware");
-    return NextResponse.next();
-  } catch (error) {
-    console.error("Error in middleware:", error);
-    // Decide how to handle errors - you might wasnt to redirect to an error page
-    return NextResponse.redirect(new URL("/error", req.nextUrl));
-  }
+export async function logRequest(
+  req: NextRequest,
+  res: NextResponse,
+  next: Function
+) {
+  console.log(`My Request URL: ${req.url}`);
+  next();
 }
+
+function combineMiddleware(...middlewares: Function[]) {
+  return async (req: NextRequest) => {
+    console.log("Reached the combined middleware");
+    for (const middleware of middlewares) {
+      const result = await middleware(req, NextResponse.next(), () => {});
+      if (result instanceof Response || result instanceof NextResponse) {
+        return result;
+      }
+    }
+    return NextResponse.next();
+  };
+}
+
+export default combineMiddleware(logRequest, auth);
 
 export const config = {
   matcher: ["/settings/:path*", "/saved/:path*", "/:path/comments/", "/"],
