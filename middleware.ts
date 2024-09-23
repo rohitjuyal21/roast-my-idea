@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
   } catch (error) {
     console.error("Error in middleware:", error);
     // Decide how to handle errors - you might wasnt to redirect to an error page
-    return NextResponse.redirect(new URL("/", req.nextUrl));
+    return NextResponse.redirect(new URL("/error", req.nextUrl));
   }
 }
 
