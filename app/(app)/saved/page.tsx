@@ -1,5 +1,6 @@
 "use client";
 
+import AnimatedIdeaCard from "@/components/AnimatedIdeaCard";
 import IdeaCard from "@/components/IdeaCard";
 import { fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
 import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
@@ -25,7 +26,7 @@ const Page = () => {
           {savedIdeas.length > 0 ? (
             <div className="divide-y">
               {savedIdeas.map((idea) => (
-                <IdeaCard key={idea._id} idea={idea} />
+                <AnimatedIdeaCard key={idea._id} idea={idea} />
               ))}
             </div>
           ) : (

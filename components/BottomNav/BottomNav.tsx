@@ -13,7 +13,7 @@ const BottomNav = () => {
   const pathname = usePathname();
 
   return (
-    <div className="fixed md:hidden w-full h-16 bg-background border-t border bottom-0">
+    <div className="fixed z-50 md:hidden w-full h-16 bg-background border-t border bottom-0">
       <div className="flex items-center h-full justify-between gap-4 px-4">
         {menuItems.map((item) =>
           item.href ? (
