@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "../ThemeToggle";
 
 const UserSection = () => {
   const session = useSession();
@@ -41,21 +42,7 @@ const UserSection = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[220px] ml-4">
         <div className="flex w-full flex-col gap-2 items-start">
-          <Button
-            onClick={handleThemeToggle}
-            variant="ghost"
-            className="w-full justify-start"
-          >
-            {theme === "dark" ? (
-              <>
-                <Sun className="size-5 mr-2" /> Light Mode
-              </>
-            ) : (
-              <>
-                <Moon className="size-5 mr-2" /> Dark Mode
-              </>
-            )}
-          </Button>
+          <ThemeToggle />
           <Button
             variant="ghost"
             className="w-full justify-start"
