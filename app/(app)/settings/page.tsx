@@ -21,7 +21,7 @@ const Page = () => {
   const handleDeleteAccount = async () => {
     try {
       await axiosInstance.delete("/delete-account");
-      await signOut({ redirectTo: "/login" });
+      await signOut({ callbackUrl: "/login" });
     } catch (error) {
       console.error("Failed to delete account:", error);
     }
