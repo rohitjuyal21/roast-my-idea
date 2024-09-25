@@ -57,7 +57,6 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
       await dispatch(
         toggleSavedIdeas({ ideaId: idea._id, userId: user?.id })
       ).unwrap();
-      await dispatch(fetchSavedIdeas());
       onUpvoteOrDownvote?.();
     } catch (error) {
       console.log("Error saving/unsaving the idea");
