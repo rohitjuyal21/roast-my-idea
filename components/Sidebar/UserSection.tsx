@@ -13,15 +13,10 @@ const UserSection = () => {
   const session = useSession();
   const user = session.data?.user;
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut({ redirectTo: "/login" });
-  };
-
-  const handleThemeToggle = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    await signOut({ redirect: true, callbackUrl: "/login" });
   };
 
   const handleSettingButtonClick = () => {

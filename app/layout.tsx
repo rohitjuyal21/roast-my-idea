@@ -5,6 +5,7 @@ import StoreProvider from "./StoreProvider";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import SessionWrapper from "@/components/SessionWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -32,11 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <StoreProvider>
-        <SessionProvider>
-          <body
-            className={`${inter.variable} ${road_rage.variable} ${bebas_neue.variable}`}
-          >
+      <body
+        className={`${inter.variable} ${road_rage.variable} ${bebas_neue.variable}`}
+      >
+        <SessionWrapper>
+          <StoreProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -45,10 +46,10 @@ export default function RootLayout({
             >
               {children}
             </ThemeProvider>
-            <Toaster />
-          </body>
-        </SessionProvider>
-      </StoreProvider>
+          </StoreProvider>
+        </SessionWrapper>
+        <Toaster />
+      </body>
     </html>
   );
 }
