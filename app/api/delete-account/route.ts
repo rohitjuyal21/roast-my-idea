@@ -4,7 +4,7 @@ import { User } from "@/models/User";
 import { Comment } from "@/models/Comment";
 import { Idea } from "@/models/Idea";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function DELETE(req: NextRequest) {
   try {

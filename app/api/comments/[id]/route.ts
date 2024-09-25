@@ -4,7 +4,7 @@ import { Idea } from "@/models/Idea";
 import { User } from "@/models/User";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(
   req: NextRequest,
