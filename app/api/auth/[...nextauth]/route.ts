@@ -11,7 +11,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/login", // Redirect to this page when user is not authenticated
+    signIn: "/login",
   },
   callbacks: {
     async signIn({ user, account }) {
@@ -37,6 +37,12 @@ export const authOptions: NextAuthOptions = {
         session.user.id = currentUser._id.toString();
       }
       return session;
+    },
+    async jwt({ token, account }) {
+      if (account?.providerAccountId) {
+        token.sub = account.providerAccountId;
+      }
+      return token;
     },
   },
   session: {
