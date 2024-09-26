@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { selectIdeas, useAppDispatch, useAppSelector } from "@/lib/store";
 import { fetchIdeas, fetchSavedIdeas } from "@/lib/features/ideas/ideasSlice";
 import AnimatedIdeaCard from "@/components/AnimatedIdeaCard";
+import Logo from "@/components/Logo";
 
 const Home = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -23,6 +24,9 @@ const Home = () => {
 
   return (
     <div className="p-4 md:p-8 h-full flex-1 flex flex-col gap-4">
+      <div className="flex justify-center md:hidden pb-2">
+        <Logo />
+      </div>
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-3xl">Feed</h1>
         <Button onClick={() => setOpenDialog(true)}>
