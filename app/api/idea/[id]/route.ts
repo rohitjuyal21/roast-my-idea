@@ -1,6 +1,6 @@
 import { dbConnect } from "@/lib/db";
 import { Idea } from "@/models/Idea";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,

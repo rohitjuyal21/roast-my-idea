@@ -18,6 +18,7 @@ const UserSection = () => {
   const handleLogout = async () => {
     await signOut({ redirect: true, callbackUrl: "/login" });
   };
+  console.log(user);
 
   const handleSettingButtonClick = () => {
     setIsPopoverOpen(false);

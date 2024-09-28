@@ -3,14 +3,13 @@ import { dbConnect } from "@/lib/db";
 import { User } from "@/models/User";
 import { Comment } from "@/models/Comment";
 import { Idea } from "@/models/Idea";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/auth";
 
 export async function DELETE(req: NextRequest) {
   try {
     await dbConnect();
 
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     const userId = session?.user?.id;
 
     if (!userId) {

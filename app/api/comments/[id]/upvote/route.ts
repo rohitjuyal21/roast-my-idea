@@ -1,8 +1,7 @@
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/auth";
 import { dbConnect } from "@/lib/db";
 import { Comment } from "@/models/Comment";
 import { User } from "@/models/User";
-import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 
 export async function POST(
@@ -13,7 +12,7 @@ export async function POST(
     await dbConnect();
     const commentId = params.id;
 
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     const userId = session?.user?.id;
 
     const user = await User.findById(userId);
