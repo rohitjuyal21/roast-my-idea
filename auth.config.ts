@@ -1,7 +1,7 @@
-import type { NextAuthConfig } from "next-auth";
+import { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
-import { dbConnect } from "./lib/db";
 import { User } from "./models/User";
+import { dbConnect } from "./lib/db";
 
 export const authConfig: NextAuthConfig = {
   providers: [Google],
@@ -42,12 +42,29 @@ export const authConfig: NextAuthConfig = {
     },
 
     async session({ session, token }) {
-      await dbConnect();
-      console.log(session.user.email);
-      console.log(token);
-      const currentUser = await User.find({ email: session.user.email });
-      console.log(currentUser);
-      return session;
+      try {
+        await dbConnect(); // Ensure the database is connected
+
+        // Use optional chaining and nullish coalescing to handle undefined safely
+        const user = await User.findOne({ email: session.user?.email });
+
+        if (user) {
+          // Safely assign user details to the session
+          session.user = {
+            ...session.user,
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+          };
+        }
+      } catch (error) {
+        console.error(
+          "Error connecting to the database in session callback:",
+          error
+        );
+      }
+
+      return session; // Always return the session, even if user is not found or error occurs
     },
     async jwt({ token, account }) {
       if (account?.providerAccountId) {

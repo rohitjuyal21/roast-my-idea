@@ -13,8 +13,6 @@ import { useTheme } from "next-themes";
 const ThemeToggle = () => {
   const { theme, setTheme, systemTheme } = useTheme();
 
-  console.log(systemTheme);
-
   const renderThemeButton = () => {
     if (theme === "system") {
       return systemTheme === "dark" ? (
