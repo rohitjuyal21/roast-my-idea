@@ -30,7 +30,7 @@ const Page = () => {
               ))}
             </div>
           ) : (
-            <div className="flex h-full items-center justify-center">
+            <div className="flex h-full items-center justify-center text-muted-foreground">
               Your saved ideas list is empty
             </div>
           )}

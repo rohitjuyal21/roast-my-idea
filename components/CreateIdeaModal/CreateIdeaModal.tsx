@@ -79,7 +79,7 @@ const CreateIdeaModal: React.FC<ModalProps> = ({
         }
       }}
     >
-      <DialogContent>
+      <DialogContent className="w-[90%] rounded-lg sm:w-full">
         <DialogTitle className="text-xl">Post your Idea</DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

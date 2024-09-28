@@ -48,7 +48,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           <button
             onClick={handleUpvote}
             className={cn(
-              "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
+              "flex items-center gap-1 text-sm mx-2 my-1 relative hover:text-destructive before:bg-destructive/30 before:absolute before:w-8 before:h-8 before:-top-1 before:-left-1 before:rounded-full before:transition before:opacity-0 before:hover:opacity-100 ",
               user?.id && comment.upvotes.includes(user.id)
                 ? "text-destructive"
                 : "text-primary"
@@ -69,7 +69,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           <button
             onClick={handleDownvote}
             className={cn(
-              "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
+              "flex items-center gap-1 text-sm mx-2 my-1 relative hover:text-destructive before:bg-destructive/30 before:absolute before:w-8 before:h-8 before:-top-1 before:-left-1 before:rounded-full before:transition before:opacity-0 before:hover:opacity-100",
               user?.id && comment.downvotes.includes(user.id)
                 ? "text-destructive"
                 : "text-primary"

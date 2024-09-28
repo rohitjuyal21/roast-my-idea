@@ -36,7 +36,7 @@ const Page = () => {
   };
 
   return (
-    <div className="p-8 h-full flex-1 flex flex-col gap-4">
+    <div className="p-4 md:p-8 h-full flex-1 flex flex-col gap-4">
       <div>
         <Button variant="ghost" onClick={() => router.back()}>
           <Undo className="size-5 mr-2" /> Back
@@ -44,7 +44,9 @@ const Page = () => {
       </div>
       <div className="flex h-full w-full">
         {loading ? (
-          <p className="flex items-center justify-center w-full">Loading...</p>
+          <p className="flex items-center justify-center w-full text-muted-foreground">
+            Loading...
+          </p>
         ) : (
           <div className="w-full flex flex-col gap-6">
             {idea && (

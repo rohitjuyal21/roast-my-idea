@@ -14,7 +14,7 @@ const AnimatedIdeaCard: React.FC<AnimatedIdeaCardProps> = ({
 }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05,
   });
 
   return (

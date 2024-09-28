@@ -5,7 +5,6 @@ import { Button } from "../ui/button";
 import { LogOut, Moon, Settings, Sun } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { signOut, useSession } from "next-auth/react";
-import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import ThemeToggle from "../ThemeToggle";
 
@@ -18,7 +17,6 @@ const UserSection = () => {
   const handleLogout = async () => {
     await signOut({ redirect: true, callbackUrl: "/login" });
   };
-  console.log(user);
 
   const handleSettingButtonClick = () => {
     setIsPopoverOpen(false);

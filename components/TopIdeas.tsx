@@ -19,14 +19,20 @@ const TopIdeas = () => {
 
   return (
     <div className="fixed min-h-screen h-full w-96 border-l right-0 hidden xl:flex">
-      <ScrollArea className="h-full w-full flex flex-1 flex-col">
-        <div className="p-8 min-h-full w-full flex flex-col gap-4">
+      {ideasStatus === "loading" ? (
+        <div className="p-8 w-full flex flex-col gap-4">
           <h1 className="font-bold text-3xl">Top Ideas</h1>
-          {ideasStatus === "loading" ? (
-            <div className="flex flex-1 items-center justify-center">
-              <p>Loading...</p>
-            </div>
-          ) : (
+          <div className="flex flex-1 items-center justify-center text-muted-foreground">
+            <p>Loading...</p>
+          </div>
+        </div>
+      ) : (
+        <ScrollArea
+          className="h-full w-full flex flex-1 flex-col"
+          style={{ height: "100%" }}
+        >
+          <div className="p-8 min-h-full w-full flex flex-col gap-4">
+            <h1 className="font-bold text-3xl">Top Ideas</h1>
             <div className="divide-y">
               {sortedIdeas.map((idea) => (
                 <AnimatedIdeaCard
@@ -36,9 +42,9 @@ const TopIdeas = () => {
                 />
               ))}
             </div>
-          )}
-        </div>
-      </ScrollArea>
+          </div>
+        </ScrollArea>
+      )}
     </div>
   );
 };

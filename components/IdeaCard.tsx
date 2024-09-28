@@ -85,7 +85,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
           <button
             onClick={handleUpvote}
             className={cn(
-              "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
+              "flex items-center gap-1 text-sm mx-2 my-1 relative hover:text-destructive before:bg-destructive/30 before:absolute before:w-8 before:h-8 before:-top-1 before:-left-1 before:rounded-full before:transition before:opacity-0 before:hover:opacity-100",
               user?.id && idea.upvotes.includes(user?.id)
                 ? "text-destructive"
                 : "text-primary"
@@ -98,6 +98,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
                   : "hsl(var(--background))"
               }
             />
+
             <span className="font-medium">
               {idea?.upvotes?.length > 0 && formatNumber(idea?.upvotes?.length)}
             </span>
@@ -108,7 +109,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
           <button
             onClick={handleDownvote}
             className={cn(
-              "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
+              "flex items-center gap-1 text-sm mx-2 my-1 relative hover:text-destructive before:bg-destructive/30 before:absolute before:w-8 before:h-8 before:-top-1 before:-left-1 before:rounded-full before:transition before:opacity-0 before:hover:opacity-100",
               user?.id && idea.downvotes.includes(user?.id)
                 ? "text-destructive"
                 : "text-primary"
@@ -132,9 +133,9 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
 
           <button
             onClick={handleComments}
-            className="flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive"
+            className="flex items-center gap-1 text-sm mx-2 my-1 relative hover:text-destructive before:bg-destructive/30 before:absolute before:w-8 before:h-8 before:-top-1 before:-left-1 before:rounded-full before:transition before:opacity-0 before:hover:opacity-100"
           >
-            <MessageSquare className="size-5" />
+            <MessageSquare className="p-0.5" />
             <span className="font-medium">
               {idea?.comments?.length > 0 && idea?.comments?.length}
             </span>
@@ -147,14 +148,14 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
           <button
             onClick={handleSaveToggle}
             className={cn(
-              "flex items-center gap-1 text-sm mx-2 my-1 hover:text-destructive",
+              "flex items-center gap-1 text-sm mx-2 my-1 relative hover:text-destructive before:bg-destructive/30 before:absolute before:w-8 before:h-8 before:-top-1 before:-left-1 before:rounded-full before:transition before:opacity-0 before:hover:opacity-100",
               user?.id && idea.saves.includes(user?.id)
                 ? "text-destructive"
                 : "text-primary"
             )}
           >
             <Bookmark
-              className="size-5"
+              className="p-0.5"
               fill={
                 user?.id && idea.saves.includes(user?.id)
                   ? "hsl(var(--destructive)"
