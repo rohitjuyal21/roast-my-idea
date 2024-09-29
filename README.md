@@ -2,7 +2,7 @@
 
 ## Overview
 
-Roast My Idea is a social application aimed at allowing users to post their startup ideas anonymously (as your name won't be seen) and receive honest feedback from the community.
+Roast My Idea is a social application designed to allow users to post their startup ideas anonymously and receive honest feedback from the community. This ensures that users can share their ideas without the fear of judgment, fostering an open environment for constructive criticism.
 
 ## Technologies Used
 
@@ -23,17 +23,4 @@ Roast My Idea is a social application aimed at allowing users to post their star
 
 ![Screenshot 2](/public/images/home-meta.png)
 
-## Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/yourusername/roast-my-idea.git
-
-   ```
-
-2. Navigate to the project directory:
-
-   ```bash
-   cd roast-my-idea
-   ```
+![Screenshot 3](/public/images/post-meta.png)

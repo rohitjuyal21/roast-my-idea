@@ -39,6 +39,13 @@ export const metadata: Metadata = {
     siteName: "Roast my Idea",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Roast my Idea",
+    description:
+      "Share your startup ideas and receive anonymous, honest feedback from the community.",
+    images: "https://roast-my-idea.vercel.app/images/login-meta.png",
+  },
 };
 
 export default function RootLayout({
