@@ -37,13 +37,6 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     await dbConnect();
-    const session = await auth();
-    const userId = session?.user?.id;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return Response.json({ message: "User doesn't exist" }, { status: 401 });
-    }
 
     const ideas = await Idea.find();
 

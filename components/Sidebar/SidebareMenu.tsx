@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import CreateIdeaModal from "../CreateIdeaModal/CreateIdeaModal";
+import { useSession } from "next-auth/react";
+import LoginPopup from "../LoginPopup";
 
 export const menuItems = [
   {
@@ -25,7 +27,24 @@ export const menuItems = [
 
 const SidebareMenu = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [openLoginPopup, setOpenLoginPopup] = useState(false);
   const pathname = usePathname();
+  const { data: session } = useSession();
+
+  const handlePostIdeaClick = () => {
+    if (!session) {
+      setOpenLoginPopup(true);
+    } else {
+      setOpenDialog(true);
+    }
+  };
+
+  const handleSaveClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!session) {
+      event.preventDefault();
+      setOpenLoginPopup(true);
+    }
+  };
 
   return (
     <>
@@ -35,6 +54,7 @@ const SidebareMenu = () => {
             <Link
               key={item.label}
               href={item.href}
+              onClick={item.label === "Saved" ? handleSaveClick : undefined}
               className={cn(
                 "flex gap-1 items-center p-2 hover:bg-muted rounded-md border",
                 pathname === item.href
@@ -48,7 +68,9 @@ const SidebareMenu = () => {
           ) : (
             <button
               key={item.label}
-              onClick={() => setOpenDialog(true)}
+              onClick={
+                item.label === "Post Idea" ? handlePostIdeaClick : undefined
+              }
               className={cn(
                 "flex gap-1 items-center p-2 hover:bg-muted rounded-md border",
                 pathname === item.href
@@ -63,6 +85,10 @@ const SidebareMenu = () => {
         )}
       </div>
       <CreateIdeaModal openDialog={openDialog} setOpenDialog={setOpenDialog} />
+      <LoginPopup
+        openDialog={openLoginPopup}
+        setOpenDialog={setOpenLoginPopup}
+      />
     </>
   );
 };

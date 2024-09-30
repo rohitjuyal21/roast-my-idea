@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import LoginPopup from "./LoginPopup";
+import { useState } from "react";
 
 interface IdeaCardProps {
   idea: Idea;
@@ -33,8 +35,14 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   const user = data?.user;
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [openLoginPopup, setOpenLoginPopup] = useState(false);
 
   const handleUpvote = async () => {
+    if (!user) {
+      setOpenLoginPopup(true);
+      return;
+    }
+
     try {
       await dispatch(upvoteIdea(idea._id)).unwrap();
       onUpvoteOrDownvote?.();
@@ -44,6 +52,10 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   };
 
   const handleDownvote = async () => {
+    if (!user) {
+      setOpenLoginPopup(true);
+      return;
+    }
     try {
       await dispatch(downvoteIdea(idea._id)).unwrap();
       onUpvoteOrDownvote?.();
@@ -53,6 +65,10 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   };
 
   const handleSaveToggle = async () => {
+    if (!user) {
+      setOpenLoginPopup(true);
+      return;
+    }
     try {
       await dispatch(
         toggleSavedIdeas({ ideaId: idea._id, userId: user?.id })
@@ -64,6 +80,10 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
   };
 
   const handleComments = () => {
+    if (!user) {
+      setOpenLoginPopup(true);
+      return;
+    }
     router.push(`/${idea._id}/comments`);
   };
 
@@ -168,6 +188,10 @@ const IdeaCard: React.FC<IdeaCardProps> = ({
           </button>
         </div>
       </div>
+      <LoginPopup
+        openDialog={openLoginPopup}
+        setOpenDialog={setOpenLoginPopup}
+      />
     </div>
   );
 };
